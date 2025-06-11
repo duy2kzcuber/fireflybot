@@ -1,6 +1,7 @@
 import { config } from "dotenv";
 import {bootstrap} from "./commands/index"
 import { scdl } from './services/soundcloud';
+const express = require('express');
 config();
 
 if (process.env.NODE_ENV === "production") {
@@ -52,6 +53,20 @@ client.login(process.env.TOKEN).then(async () => {
   
   bootstrap(client);
 });
+
+const app = express();
+app.use(express.json());
+const router = require('express').Router();
+const path = require('path');
+app.set('views', path.join(__dirname,"views")); // __dirname: tên thư mục gốc
+app.set('view engine', 'pug');
+app.use('/',function(req: any,res: { render: (arg0: string) => void; }){
+  console.log(req);
+  res.render('index');
+});
+app.listen(3000,'0.0.0.0', () => {
+  console.log(`Example app listening on port ${3000}`)
+})
 
 
 

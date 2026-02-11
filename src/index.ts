@@ -25,8 +25,13 @@ let startTime = Date.now();
 client.on("ready", () => {
   
   console.log(`> Bot is on ready`);
+  console.log(client.user?.id);
   updatePresence();
   setInterval(updatePresence,1000);
+});
+
+process.on("unhandledRejection", (reason, promise) => {
+    console.error("Unhandled Rejection:", reason);
 });
 
 function updatePresence() {

@@ -8,6 +8,7 @@ import { nhaicon } from './collections/nhaicon';
 
 
 export const bootstrap = (client: Client): void => {
+  console.log("Bootstrapping commands...", client.user?.tag);
   deploy(client);
 
   client.on('interactionCreate', async (interaction) => {

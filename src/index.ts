@@ -22,17 +22,20 @@ const client = new Client({
 
 let startTime = Date.now();
 
-client.on("ready", () => {
+client.on("ready", async () => {
   
   console.log(`> Bot is on ready`);
   console.log(client.user?.id);
   updatePresence();
   setInterval(updatePresence,1000);
+
+  await bootstrap(client);
+//   process.on("unhandledRejection", (reason, promise) => {
+//     console.error("Unhandled Rejection:", reason);
+// });
 });
 
-process.on("unhandledRejection", (reason, promise) => {
-    console.error("Unhandled Rejection:", reason);
-});
+
 
 function updatePresence() {
     const diff = Date.now() - startTime;
@@ -54,9 +57,9 @@ function updatePresence() {
 // client.login(process.env.TOKEN);
 
 client.login(process.env.TOKEN).then(async () => {
-  await SoundCloud.connect();
+  // await SoundCloud.connect();
   
-  bootstrap(client);
+  
 });
 
 const app = express();
